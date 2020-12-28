@@ -10,7 +10,7 @@ loader=["|","/","-","\\"]
 server=[
     "https://krypton-bot-server.herokuapp.com",
     "https://krypton-byte.herokuapp.com",
-    "https://botro-chappie.herokuapp.com",
+    "https://botpro-chappie.herokuapp.com",
     "https://krypton-chappie-bot.herokuapp.com"
 ]
 def main():
