@@ -34,7 +34,7 @@ def main():
         while True:
             if "anda sudah login" in req.lower():
                 print(f"{Fore.LIGHTYELLOW_EX}[{Fore.LIGHTGREEN_EX}{loader[temp%len(loader)]}{Fore.LIGHTYELLOW_EX}] Tersambung", end="\r")
-                requests.get(uri).text
+                req=requests.get(uri).text
                 time.sleep(50)
                 temp+=1
             elif re.search('<input type="hidden" name="qr" value="(.*?)">', req):
