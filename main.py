@@ -38,8 +38,8 @@ def main():
                 time.sleep(50)
                 temp+=1
             elif re.search('<input type="hidden" name="qr" value="(.*?)">', req):
-                req=requests.get(uri).text
                 print(pyqrcode.create(re.search('<input type="hidden" name="qr" value="(.*?)">', req)[1]).terminal(quiet_zone=1))
+                req=requests.get(uri).text
                 time.sleep(10)
             else:
                 print(f"{Fore.LIGHTMAGENTA_EX}[-] Harap Hubungi Author{Fore.RESET}")
