@@ -44,6 +44,7 @@ def setup():
             }, indent=4))
             print(f"{Fore.LIGHTYELLOW_EX}[{Fore.LIGHTRED_EX}-{Fore.LIGHTYELLOW_EX}] {Fore.LIGHTRED_EX}Set Nama dan author berhasil{Fore.RESET}")
             main2()
+            break
 def main():
     global temp
     loadjs=json.loads(open("data.json","r").read()) if "data.json" in os.listdir(os.getcwd()) else {"botname":"Krypton-Bot","author":"6283172366463"}
