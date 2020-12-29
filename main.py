@@ -68,9 +68,9 @@ def main():
         print(f"{Fore.LIGHTYELLOW_EX}[{Fore.LIGHTRED_EX}-{Fore.LIGHTYELLOW_EX}] {Fore.LIGHTRED_EX}server sedang di gunakan{Fore.RESET}")
     else:
         while True:
-            if "anda sudah login" in req:
+            if "anda" in req:
                 print(f"{Fore.LIGHTYELLOW_EX}[{Fore.LIGHTGREEN_EX}{loader[temp%len(loader)]}{Fore.LIGHTYELLOW_EX}] Tersambung", end="\r")
-                req=requests.get(uri, params={"botname":loadjs.get("botname","Krypton Bot"),"author":loadjs.get("author","6283172366463")}).text.lower()
+                req=requests.get(uri, params={"botname":loadjs.get("botname").__str__(),"author":loadjs.get("author").__str__()}).text.lower()
                 time.sleep(50)
                 temp+=1
             elif re.search('<input type="hidden" name="qr" value="(.*?)">', req):
