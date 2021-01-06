@@ -59,8 +59,11 @@ def recv_log(data):
 print("Connected Server: %s"%Sio.connected)
 time.sleep(5)
 while True:
-    Sio.emit("get_qr", namespace="/serverx")
-    time.sleep(10)
+    try:
+        Sio.emit("get_qr", namespace="/serverx")
+        time.sleep(10)
+    except:
+        Sio.connect(server[int(sys.argv[1])], namespaces=["/login","/serverx"])
 Sio.wait()
 
     
