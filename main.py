@@ -50,19 +50,17 @@ while True:
 @Sio.on("qr", namespace="/login")
 def recv_qr(data):
     print("\n\n"+Fore.RESET+pyqrcode.create(data.get("qr")).terminal(quiet_zone=1))
-    time.sleep(10)
-    Sio.emit("get_qr", namespace="/serverx")
 @Sio.on("loged", namespace="/login")
 def recv_log(data):
     global angka
     if data.get("Logged"):
         print(f"{Fore.LIGHTYELLOW_EX}[{Fore.LIGHTGREEN_EX}[Krypton Bot]{Fore.LIGHTYELLOW_EX}] Tersambung [ "+x[angka%len(x)]+" ]", end="\r")
         angka+=1
-        time.sleep(10)
-        Sio.emit("get_qr", namespace="/serverx")
 print("Connected Server: %s"%Sio.connected)
 time.sleep(5)
-Sio.emit("get_qr", namespace="/serverx")
+while True:
+    Sio.emit("get_qr", namespace="/serverx")
+    time.sleep(10)
 Sio.wait()
 
     
