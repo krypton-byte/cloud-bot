@@ -1,83 +1,68 @@
-"""
-Author : Krypton Byte
-Update : 28 Desember 2020
-version: 0.0.1
-"""
-from os import getcwd
-import requests, time, pyqrcode, re, os, json
+import os
+import sys
 from colorama.ansi import Fore
-temp=0
-loader=["|","/","-","\\"]
+import socketio, pyqrcode, time
+"""
+ Author: Krypton Byte
+ Update: Wed 6 Jan 2020 14:39
+"""
+angka=0
+x=["-<>----","--<>---","---<>--","----<>-","-----<>","----<>-","---<>--","--<>---","-<>----","<>-----"]
 server=[
-    "https://krypton-bot-server.herokuapp.com",
-    "https://krypton-byte.herokuapp.com",
-    "https://botpro-chappie.herokuapp.com",
-    "https://krypton-chappie-bot.herokuapp.com"
+    "http://bot-kbyte.herokuapp.com",
+    "http://kbyte-bot.herokuapp.com",
+    "http://krypton-application.herokuapp.com",
+    "http://krypton-bot-indonesia.herokuapp.com",
+    "http://my-xbot.herokuapp.com",
+    "http://kits-api.herokuapp.com",
+    "http://krypton-bot-server.herokuapp.com",
+    "http://krypton-bot-server.herokuapp.com",
+    "http://botpro-chappie.herokuapp.com",
+    "http://krypton-chappie-bot.herokuapp.com",
+    "http://krypton-byte.herokuapp.com"
 ]
-def main2():
-    print(f"""{Fore.LIGHTRED_EX}╭────「 {Fore.LIGHTGREEN_EX}BOT Menu{Fore.LIGHTRED_EX} 」──────
-{Fore.LIGHTRED_EX}│ {Fore.LIGHTCYAN_EX}1. {Fore.LIGHTYELLOW_EX}Set Nama & Author
-{Fore.LIGHTRED_EX}│ {Fore.LIGHTCYAN_EX}2. {Fore.LIGHTYELLOW_EX}Run Bot
-{Fore.LIGHTRED_EX}│ {Fore.LIGHTCYAN_EX}3. {Fore.LIGHTYELLOW_EX}Exit
-{Fore.LIGHTRED_EX}╰────────────────────────""")
-    while True:
-        pilihan=input(f"""{Fore.LIGHTRED_EX}╭────「 {Fore.LIGHTGREEN_EX}Input Menu{Fore.LIGHTRED_EX} 」────
-{Fore.LIGHTRED_EX}│
-{Fore.LIGHTRED_EX}╰─>{Fore.LIGHTGREEN_EX} """)
-        if pilihan in ["1", "01"]:
-            setup()
-        elif pilihan in ["2", "02"]:
-            main()
-            break
-        elif pilihan in ["3", "03"]:
-            break
-def setup():
-    while True:
-        print(f"""{Fore.LIGHTRED_EX}╭────「 {Fore.LIGHTGREEN_EX}Input Menu{Fore.LIGHTRED_EX} 」────
-{Fore.LIGHTRED_EX}│""")
-        botname=input(f"{Fore.LIGHTRED_EX}╰─[{Fore.LIGHTYELLOW_EX}Nama Bot{Fore.LIGHTRED_EX}]> {Fore.LIGHTGREEN_EX}")
-        author =input(f"{Fore.LIGHTRED_EX}╰─[{Fore.LIGHTYELLOW_EX}Author Bot]{Fore.LIGHTRED_EX}> {Fore.LIGHTGREEN_EX}")
-        if botname and author:
-            open("data.json","w").write(json.dumps({
-                    "botname":botname,
-                    "author":author
-            }, indent=4))
-            print(f"{Fore.LIGHTYELLOW_EX}[{Fore.LIGHTRED_EX}-{Fore.LIGHTYELLOW_EX}] {Fore.LIGHTRED_EX}Set Nama dan author berhasil{Fore.RESET}")
-            main2()
-            break
-def main():
-    global temp
-    loadjs=json.loads(open("data.json","r").read()) if "data.json" in os.listdir(os.getcwd()) else {"botname":"Krypton-Bot","author":"6283172366463"}
-    print(f"""{Fore.LIGHTRED_EX}╭────「 {Fore.LIGHTGREEN_EX}BOT Server{Fore.LIGHTRED_EX} 」──────""")
-    for i in range(len(server)):
-        print(f"{Fore.LIGHTRED_EX}│ {Fore.LIGHTCYAN_EX}{i}. {Fore.LIGHTYELLOW_EX}Server {i}")
-    print(f"{Fore.LIGHTRED_EX}╰──────────────────────────")
-    while True:
-        try:
-            print(f"""{Fore.LIGHTRED_EX}╭────「 {Fore.LIGHTGREEN_EX}Input Menu{Fore.LIGHTRED_EX} 」──────
-{Fore.LIGHTRED_EX}│""")
-            uri=server[int(input(f"{Fore.LIGHTRED_EX}╰─[{Fore.LIGHTYELLOW_EX}Nomer Server{Fore.LIGHTRED_EX}]> {Fore.LIGHTGREEN_EX}"))]
-            break
-        except IndexError:
-            continue
-        except KeyboardInterrupt:
-            print(f"\r{Fore.LIGHTGREEN_EX}[-] Bye Bye      {Fore.RESET}")
-            exit(1)
-    req=requests.get(uri, params={"botname":loadjs.get("botname","Krypton Bot"),"author":loadjs.get("author","6283172366463")}).text.lower()
-    if "anda sudah login" in req.lower():
-        print(f"{Fore.LIGHTYELLOW_EX}[{Fore.LIGHTRED_EX}-{Fore.LIGHTYELLOW_EX}] {Fore.LIGHTRED_EX}server sedang di gunakan{Fore.RESET}")
+if len(sys.argv)>1:
+    if (val:=sys.argv[1]).isnumeric():
+        if int(val) < len(server):
+            pass
+        else:
+            print(f"{Fore.LIGHTRED_EX}Nomer Server Tidak Ada")
+            exit()
+    elif val == "list":
+            print(f"""{Fore.LIGHTRED_EX}╭────「 {Fore.LIGHTGREEN_EX}BOT Server{Fore.LIGHTRED_EX} 」──────""")
+            for i in enumerate(server):
+                print(f"{Fore.LIGHTRED_EX}│ {Fore.LIGHTCYAN_EX}{i[0]}. {Fore.LIGHTYELLOW_EX}Server {i[0]}")
+            print(f"{Fore.LIGHTRED_EX}╰────「 {Fore.LIGHTYELLOW_EX}Krypton Bot{Fore.LIGHTRED_EX}]」──────{Fore.LIGHTGREEN_EX}")
+            exit()
     else:
-        while True:
-            if "anda" in req:
-                print(f"{Fore.LIGHTYELLOW_EX}[{Fore.LIGHTGREEN_EX}{loader[temp%len(loader)]}{Fore.LIGHTYELLOW_EX}] Tersambung", end="\r")
-                req=requests.get(uri, params={"botname":loadjs.get("botname").__str__(),"author":loadjs.get("author").__str__()}).text.lower()
-                time.sleep(50)
-                temp+=1
-            elif re.search('<input type="hidden" name="qr" value="(.*?)">', req):
-                print(pyqrcode.create(re.search('<input type="hidden" name="qr" value="(.*?)">', req)[1]).terminal(quiet_zone=1))
-                req=requests.get(uri).text
-                time.sleep(10)
-            else:
-                print(f"{Fore.LIGHTMAGENTA_EX}[-] Harap Hubungi Author{Fore.RESET}")
-                break
-main2()
+            print(f"{Fore.LIGHTRED_EX}> {Fore.LIGHTGREEN_EX}python {Fore.LIGHTYELLOW_EX}{sys.argv[0]} {Fore.LIGHTGREEN_EX}[{Fore.LIGHTYELLOW_EX}<{Fore.LIGHTRED_EX}no_server{Fore.LIGHTYELLOW_EX}>{Fore.LIGHTGREEN_EX}|{Fore.LIGHTRED_EX}list{Fore.LIGHTGREEN_EX}]")
+            exit()
+else:
+    print(f"{Fore.LIGHTRED_EX}> {Fore.LIGHTGREEN_EX}python {Fore.LIGHTYELLOW_EX}{sys.argv[0]} {Fore.LIGHTGREEN_EX}[{Fore.LIGHTYELLOW_EX}<{Fore.LIGHTRED_EX}no_server{Fore.LIGHTYELLOW_EX}>{Fore.LIGHTGREEN_EX}|{Fore.LIGHTRED_EX}list{Fore.LIGHTGREEN_EX}]")
+    exit()
+Sio=socketio.Client()
+while True:
+    try:
+        Sio.connect(server[int(sys.argv[1])], namespaces=["/login","/serverx"])
+        break
+    except:
+        continue
+@Sio.on("qr", namespace="/login")
+def recv_qr(data):
+    print("\n\n"+pyqrcode.create(data.get("qr")).terminal(quiet_zone=1))
+    time.sleep(10)
+    Sio.emit("get_qr", namespace="/serverx")
+@Sio.on("loged", namespace="/login")
+def recv_log(data):
+    global angka
+    if data.get("Logged"):
+        print(f"{Fore.LIGHTYELLOW_EX}[{Fore.LIGHTGREEN_EX}[Krypton Bot]{Fore.LIGHTYELLOW_EX}] Tersambung [ "+x[angka%len(x)]+" ]", end="\r")
+        angka+=1
+        time.sleep(10)
+        Sio.emit("get_qr", namespace="/serverx")
+print("Connected Server: %s"%Sio.connected)
+time.sleep(5)
+Sio.emit("get_qr", namespace="/serverx")
+Sio.wait()
+
+    

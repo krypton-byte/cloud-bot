@@ -1,3 +1,4 @@
 pyqrcode
 requests
 colorama
+python-socketio
