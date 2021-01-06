@@ -1,6 +1,7 @@
 <div style="text-align:center;"><img src="https://img.icons8.com/dusk/64/000000/bot--v2.png"/>
 <h1>Cloud BOT</h1>
 </div>
+
 <h2><b>how to run this bot</b></h2>
 
 ```bash

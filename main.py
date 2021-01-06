@@ -26,19 +26,19 @@ if len(sys.argv)>1:
         if int(val) < len(server):
             pass
         else:
-            print(f"{Fore.LIGHTRED_EX}Nomer Server Tidak Ada")
+            print(f"{Fore.LIGHTRED_EX}Nomer Server Tidak Ada{Fore.RESET}")
             exit()
     elif val == "list":
             print(f"""{Fore.LIGHTRED_EX}╭────「 {Fore.LIGHTGREEN_EX}BOT Server{Fore.LIGHTRED_EX} 」──────""")
             for i in enumerate(server):
                 print(f"{Fore.LIGHTRED_EX}│ {Fore.LIGHTCYAN_EX}{i[0]}. {Fore.LIGHTYELLOW_EX}Server {i[0]}")
-            print(f"{Fore.LIGHTRED_EX}╰────「 {Fore.LIGHTYELLOW_EX}Krypton Bot{Fore.LIGHTRED_EX}]」──────{Fore.LIGHTGREEN_EX}")
+            print(f"{Fore.LIGHTRED_EX}╰────「 {Fore.LIGHTYELLOW_EX}Krypton Bot{Fore.LIGHTRED_EX}]」──────{Fore.LIGHTGREEN_EX}{Fore.RESET}")
             exit()
     else:
-            print(f"{Fore.LIGHTRED_EX}> {Fore.LIGHTGREEN_EX}python {Fore.LIGHTYELLOW_EX}{sys.argv[0]} {Fore.LIGHTGREEN_EX}[{Fore.LIGHTYELLOW_EX}<{Fore.LIGHTRED_EX}no_server{Fore.LIGHTYELLOW_EX}>{Fore.LIGHTGREEN_EX}|{Fore.LIGHTRED_EX}list{Fore.LIGHTGREEN_EX}]")
+            print(f"{Fore.LIGHTRED_EX}> {Fore.LIGHTGREEN_EX}python {Fore.LIGHTYELLOW_EX}{sys.argv[0]} {Fore.LIGHTGREEN_EX}[{Fore.LIGHTYELLOW_EX}<{Fore.LIGHTRED_EX}no_server{Fore.LIGHTYELLOW_EX}>{Fore.LIGHTGREEN_EX}|{Fore.LIGHTRED_EX}list{Fore.LIGHTGREEN_EX}]{Fore.RESET}")
             exit()
 else:
-    print(f"{Fore.LIGHTRED_EX}> {Fore.LIGHTGREEN_EX}python {Fore.LIGHTYELLOW_EX}{sys.argv[0]} {Fore.LIGHTGREEN_EX}[{Fore.LIGHTYELLOW_EX}<{Fore.LIGHTRED_EX}no_server{Fore.LIGHTYELLOW_EX}>{Fore.LIGHTGREEN_EX}|{Fore.LIGHTRED_EX}list{Fore.LIGHTGREEN_EX}]")
+    print(f"{Fore.LIGHTRED_EX}> {Fore.LIGHTGREEN_EX}python {Fore.LIGHTYELLOW_EX}{sys.argv[0]} {Fore.LIGHTGREEN_EX}[{Fore.LIGHTYELLOW_EX}<{Fore.LIGHTRED_EX}no_server{Fore.LIGHTYELLOW_EX}>{Fore.LIGHTGREEN_EX}|{Fore.LIGHTRED_EX}list{Fore.LIGHTGREEN_EX}]{Fore.RESET}")
     exit()
 Sio=socketio.Client()
 while True:
@@ -49,7 +49,7 @@ while True:
         continue
 @Sio.on("qr", namespace="/login")
 def recv_qr(data):
-    print("\n\n"+pyqrcode.create(data.get("qr")).terminal(quiet_zone=1))
+    print("\n\n"+Fore.RESET+pyqrcode.create(data.get("qr")).terminal(quiet_zone=1))
     time.sleep(10)
     Sio.emit("get_qr", namespace="/serverx")
 @Sio.on("loged", namespace="/login")
